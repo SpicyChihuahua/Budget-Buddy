@@ -1,0 +1,32 @@
+#pageHeader {
+    font-size: 50px;
+    color: whitesmoke;
+    text-align: center;
+}
+
+#authorSection {
+    height: 100px;
+    justify-content: center;
+    /* background-color: blue; */
+    margin: auto;
+}
+
+#authorSectionText {
+    text-align: center;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+#authorList {
+    justify-content: center;
+    align-items: center;
+    display: table;
+    margin: 0 auto;
+    list-style: none;
+    padding-left: 0;
+}
+
+.authorItem {
+    font-family: "Brush Script MT";
+    font-size: 20px;
+}

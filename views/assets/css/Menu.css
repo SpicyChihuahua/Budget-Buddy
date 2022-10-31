@@ -1,0 +1,70 @@
+#menuSection {
+    width: 100%;
+    height: 80px;
+    display:flex;
+    justify-content:center;
+    background-color: darkred;
+}
+
+#menuItemsSection {
+    position: relative;
+    /* background-color: aqua; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    top: 25%;
+    /* left: 10%; */
+}
+
+#menuItemList {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+}
+
+.menuItem {
+    position: relative;
+    margin-left: 20%;
+    margin-right: 20%;
+    font-size: x-large;
+    text-align: center;
+}
+
+.menuLink {
+    text-decoration: none;
+}
+
+.menuText {
+    color: white;
+    font-weight: bolder;
+    font-family: sans-serif;
+}
+
+#profileSection {
+    width: 30%;
+    /* background-color: darkblue; */
+    right: 0;
+}
+
+#profileText {
+    text-align: center;
+}
+
+#emptyLeftSection {
+    display: flex;
+    width: 30%;
+    /* background-color: darkblue; */
+    left: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#leftMenuSectionText {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size:25px;
+}

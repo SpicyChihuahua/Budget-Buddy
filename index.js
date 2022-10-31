@@ -3,7 +3,7 @@ const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const app = express();
 
-//app.use(express.static(__dirname + '/client'))
+app.use(express.static(__dirname + '/views'));
 app.engine('handlebars', expressHandlebars.engine({
 	defaultLayout: 'main',
   }));
@@ -18,6 +18,10 @@ app.get('/',  function(request, response) {
 
 app.get('/login',  function(request, response) {
 	response.render('login');
+});
+
+app.get('/about',  function(request, response) {
+	response.render('about');
 });
 
 app.get('/test', function(request, response) {
