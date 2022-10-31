@@ -16,6 +16,10 @@ app.get('/',  function(request, response) {
 	response.render('home');
 });
 
+app.get('/login',  function(request, response) {
+	response.render('login');
+});
+
 app.get('/test', function(request, response) {
 	response.type('text/plain')
 	response.send('Node.js and Express running on port='+port)
