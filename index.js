@@ -32,6 +32,9 @@ app.get('/test', function(request, response) {
 	response.send('Node.js and Express running on port='+port);
 });
 
+app.get('/budget', function(request, response) {
+	response.render('budget');
+});
 app.post('/processlogin', function(request, response) {
 
 	//	Form inputs
