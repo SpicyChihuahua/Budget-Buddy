@@ -1,2 +1,19 @@
 <link rel="stylesheet" href="assets/css/login.css">
-<h1>Login Page</h1>
+<br>
+<br>
+{{!-- 
+The form is currently non-functional.
+We need this form to perform validation on the back-end
+before permitting login. 
+~ Kyle :)
+--}}
+<div id="loginformSection">
+    <p id="loginLabel">LOGIN</p>
+    <form id="loginform" action="/processlogin" method="POST">
+        <p class="formText">Username:</p> 
+        <input id="username" name="username" type="text" required/>
+        <p class="formText">Password:</p> 
+        <input id="password" name="password" type="password" required/><br>
+        <input id="submitButton" name="submitButton" type="submit"/>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+#loginformSection {
+    position: relative;
+    display: flex;
+    width: 400px;
+    height: 400px;
+    background-color: rgb(146, 146, 146);
+    justify-content: flex-start;
+    margin: auto;
+    border-radius: 45px 45px 45px 45px;
+    align-self: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#loginform {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    /* align-self: center; */
+}
+
+#loginLabel {
+    font-size: xx-large;
+    font-family: sans-serif;
+    height: 1%;
+    text-decoration: underline;
+}
+
+.formText {
+    font-size: larger;
+    font-family: sans-serif;
+}
+

@@ -1,7 +1,14 @@
-#pageHeader {
+.pageHeader {
     font-size: 50px;
     color: whitesmoke;
     text-align: center;
+    text-decoration: underline;
+}
+
+#purposeText {
+    text-align: center;
+    font-size: 20px;
+    font-family: sans-serif;
 }
 
 #authorSection {
@@ -28,5 +35,5 @@
 
 .authorItem {
     font-family: "Brush Script MT";
-    font-size: 20px;
+    font-size: 40px;
 }

@@ -24,6 +24,8 @@
     justify-content: center;
     align-items: center;
     list-style-type: none;
+    list-style: none;
+    padding-left: 0;
 }
 
 .menuItem {
