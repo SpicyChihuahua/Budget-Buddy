@@ -71,3 +71,10 @@
     font-weight: bolder;
     font-size:25px;
 }
+
+#proposalList {
+    text-align: center;
+    justify-content: center;
+    list-style: none;
+    font-family: sans-serif;
+}
