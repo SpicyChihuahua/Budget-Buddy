@@ -37,18 +37,31 @@ app.get('/budget', function(request, response) {
 });
 app.post('/processlogin', function(request, response) {
 
+	//Preset Passwords
+	const username = "user1"
+	const password = "1234"
+
 	//	Form inputs
-	const username = request.body.username;
-	const password = request.body.password;
+	const inputusername = request.body.username;
+	const inputpassword = request.body.password;
 
 	// Right now, I made the response to display what you entered
 	// on the login page.
 	let responseMsg = "So... this is what we got on the backend...\n";
-	responseMsg += "Username: " + username + "\n";
-	responseMsg += "Password: " + password + "\n";
+	responseMsg += "Username: " + inputusername + "\n";
+	responseMsg += "Password: " + inputpassword + "\n";
 
 	response.type('text/plain');
-	response.send(responseMsg);
+	//response.send(responseMsg);
+	if (inputusername == username && inputpassword == password) {
+		response.send("Valid UserName and Password")
+		console.log("Valid")
+		
+	} else {
+		response.send("Invalid Username and Password")
+		console.log("Invalid")
+		
+	}
 
 });
 
