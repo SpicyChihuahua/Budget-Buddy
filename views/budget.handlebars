@@ -2,14 +2,14 @@
 
 <h1 class="pageHeader">BUDGET SECTION</h1>
 <div> 
-	<form oninput=income.value.toFixed(2)=parseFloat(wage.value)*40*4.345 id="budgetForm">
+	<form oninput=income.value=(parseFloat(wage.value)*40*4.345).toFixed(2) id="budgetForm">
         <p class="formText">Hourly Wage: <br>$<input id="wage" name="wage" type="number"  step="0.01" required/> Per Hour</p>
         <br>
         <p class="formText">Paycheck Arrival: </p>
         <input type="radio" id="weekly" name="payArrive" value="Weekly">
-        <label for="weekly">Weekly (Every Week)</label>
-        <input type="radio" id="biweekly" name="payArrive" value="Bi-Weekly">
-        <label for="biweekly">Bi-Weekly (Every Other Week)</label>
+        <label for="weekly">Weekly (Every Week)</label>
+        <input type="radio" id="biweekly" name="payArrive" value="Bi-Weekly">
+        <label for="biweekly">Bi-Weekly (Every Other Week)</label>
 	
         <br><br>
 	
