@@ -2,7 +2,7 @@
 
 <h1 class="pageHeader">BUDGET SECTION</h1>
 <div> 
-	<form oninput=income.value=parseFloat(wage.value)*40*4.345 id="budgetForm">
+	<form oninput=income.value.toFixed(2)=parseFloat(wage.value)*40*4.345 id="budgetForm">
         <p class="formText">Hourly Wage: <br>$<input id="wage" name="wage" type="number"  step="0.01" required/> Per Hour</p>
         <br>
         <p class="formText">Paycheck Arrival: </p>
