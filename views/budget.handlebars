@@ -2,8 +2,8 @@
 
 <h1 class="pageHeader">BUDGET SECTION</h1>
 <div> 
-	<form id="budgetForm">
-        <p class="formText">Hourly Wage: <br>$<input id="wage" name="wage" type="number" required/> Per Hour</p>
+	<form oninput=income.value=parseFloat(wage.value)*40 id="budgetForm">
+        <p class="formText">Hourly Wage: <br>$<input id="wage" name="wage" type="number"  step="any" required/> Per Hour</p>
         <br>
         <p class="formText">Paycheck Arrival: </p>
         <input type="radio" id="weekly" name="payArrive" value="Weekly">
@@ -11,6 +11,6 @@
         <input type="radio" id="biweekly" name="payArrive" value="Bi-Weekly">
         <label for="biweekly">Bi-Weekly (Every Other Week)</label>
         <br><br>
-        <input id="submitButton" name="submitButton" type="submit"/>
+        Income = $<output name="income"</output> Per Month
 	</form>
 </div>
