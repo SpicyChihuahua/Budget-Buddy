@@ -3,7 +3,7 @@
 <h1 class="pageHeader">BUDGET SECTION</h1>
 <div> 
 	<form oninput=income.value=parseFloat(wage.value)*40 id="budgetForm">
-        <p class="formText">Hourly Wage: <br>$<input id="wage" name="wage" type="number"  step="any" required/> Per Hour</p>
+        <p class="formText">Hourly Wage: <br>$<input id="wage" name="wage" type="number"  step="0.01" required/> Per Hour</p>
         <br>
         <p class="formText">Paycheck Arrival: </p>
         <input type="radio" id="weekly" name="payArrive" value="Weekly">
@@ -13,6 +13,6 @@
 	
         <br><br>
 	
-        <p class=result "Income = $<output step="any" name="income"</output>&nbsp;<br>Per Month</p>
+        <p class=result "Monthly Income = $<output step="0.01" name="income"</output>&nbsp;<br>Per Month</p>
 	</form>
 </div>
