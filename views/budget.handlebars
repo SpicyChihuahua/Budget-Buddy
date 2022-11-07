@@ -2,5 +2,16 @@
 
 <h1 class="pageHeader">BUDGET SECTION</h1>
 <div> 
-    
+   <form id="budgetForm">
+        <p class="formText">Hourly Wage: $</p> 
+        <input id="wage" name="wage" type="number" required/> <p class="formText"> Per Hour</p>
+        <br>
+        <p class="formText">Paycheck Arrival: </p>
+        <input type="radio" id="weekly" name="payArrive" value="Weekly">
+        <label for="weekly">Weekly (Every Week)</label><br>
+        <input type="radio" id="biweekly" name="payArrive" value="Bi-Weekly">
+        <label for="biweekly">Bi-Weekly (Every Other Week)</label><br>
+        
+        <input id="submitButton" name="submitButton" type="submit"/>
+   </form>
 </div>
