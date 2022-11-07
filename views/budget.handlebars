@@ -76,23 +76,23 @@
 </HEAD>
 <BODY>
 
-	<INPUT type="button" value="Add Row" onclick="addRow('dataTable')" />
-
-	<INPUT type="button" value="Delete Row" onclick="deleteRow('dataTable')" />
-
 	<TABLE id="dataTable" width="350px" border="1">
 		<TR>
 			<TD><INPUT type="checkbox" name="chk"/></TD>
-			<TD><INPUT type="text" name="txt"/></TD>
+			<TD><INPUT type="number" name="txt"/></TD>
 			<TD>
 				<SELECT name="country">
-					<OPTION value="in">India</OPTION>
-					<OPTION value="de">Germany</OPTION>
-					<OPTION value="fr">France</OPTION>
-					<OPTION value="us">United States</OPTION>
-					<OPTION value="ch">Switzerland</OPTION>
+					<OPTION value="groceries">Groceries</OPTION>
+					<OPTION value="car">Car Payment</OPTION>
+					<OPTION value="gas">Gas</OPTION>
+					<OPTION value="rent">Rent/House Payment</OPTION>
+					<OPTION value="subs">Subscription</OPTION>
 				</SELECT>
 			</TD>
 		</TR>
 	</TABLE>
+	
+	<INPUT type="button" value="Add Expense" onclick="addRow('dataTable')" />
+
+	<INPUT type="button" value="Delete Expense(s)" onclick="deleteRow('dataTable')" />
 </div>
