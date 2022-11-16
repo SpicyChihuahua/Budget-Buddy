@@ -42,8 +42,9 @@ app.set('views', './views');
 
 const port = process.env.PORT || 3000
 
-app.get('/', checkAuthenticated, function(request, response) {
-	response.render('home', { username: request.user.username });
+app.get('/', function(request, response) {
+	// response.render('home', { username: request.user.username });
+	response.render('home');
 });
 
 app.get('/login',  function(request, response) {
@@ -59,8 +60,9 @@ app.get('/test', function(request, response) {
 	response.send('Node.js and Express running on port='+port);
 });
 
-app.get('/budget', function(request, response) {
-	response.render('budget');
+app.get('/budget', checkAuthenticated, function(request, response) {
+	// response.render('budget');
+	response.render('budget', { username: request.user.username });
 });
 
 app.post('/processlogin', passport.authenticate('local', {
