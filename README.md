@@ -12,6 +12,7 @@ Initial Usage:
 - npm install passport-local
 - npm install express-session
 - npm install express-flash
+- npm install dotenv
 - npm start
 
 
