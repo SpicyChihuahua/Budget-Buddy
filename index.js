@@ -52,6 +52,10 @@ app.get('/login',  function(request, response) {
 	response.render('login');
 });
 
+app.get('/register', function(request, response) {
+	response.render('register');
+});
+
 app.get('/about',  function(request, response) {
 	response.render('about');
 });
@@ -60,6 +64,7 @@ app.get('/test', function(request, response) {
 	response.type('text/plain');
 	response.send('Node.js and Express running on port='+port);
 });
+
 
 app.get('/budget', checkAuthenticated, function(request, response) {
 	// response.render('budget');
