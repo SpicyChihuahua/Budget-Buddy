@@ -1,22 +1,34 @@
-function loadUserDataMain() {
-    data = null;
+async function loadUserDataMain() {
+    var data = null;
+    var username = "";
+
+    var fetchURL = "";
+
+    if (window.location.hostname === "localhost") {
+        fetchURL = "http://"
+    }
+    else fetchURL = "https://"
+
+    fetchURL += window.location.hostname + ":" + window.location.port + "/getuserdata";
 
     try {
-        var fetchStr = window.location.hostname + ":" + window.location.port + "/getuserdata";
-        alert(fetchStr);
-        fetch(fetchStr)
+        // alert(fetchURL);
+        await fetch(fetchURL)
             .then(res => res.json())
-            .then((dat) => {
-                data=dat;
-              })
+            .then(dat => {
+                if(dat != null) {
+                    username = dat.username
+                }
+            })
     }
     catch {
+        alert("Profile Fetch Error!");
     }
 
-    profileTextPara = document.getElementById('profileText');
-    alert(data)
+    var profileTextPara = document.getElementById('profileText');
+    // alert(username);
     
-    if (data != null && data !== "") {
-        profileTextPara.innerHTML = "Welcome " + data + "!";
+    if (username !== "") {
+        profileTextPara.innerHTML = "Welcome " + username + "!";
     }
 }

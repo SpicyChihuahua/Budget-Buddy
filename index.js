@@ -69,7 +69,7 @@ app.post('/processlogin', passport.authenticate('local', {
 	successRedirect: '/',
 	failureRedirect: '/login',
 	failureFlash: true
-}))
+}));
 
 // {
 // 	id: 9001,
@@ -78,33 +78,35 @@ app.post('/processlogin', passport.authenticate('local', {
 // }
 app.get('/regtemp', async function(request, response) {
 	
-	id = Date.now().toString();
-	username = "kyle";
-	password = await bcrypt.hash("kyle123", 10);
-
-	users.push({
-		id: id,
-		username: username,
-		password: password
-	})
-
-	console.log("Registered \"${{username}}\" with id \"${id}\" to accounts.")
+	regtemp();
 	response.redirect('/');
 
 });
 
 app.get('/getuserdata', function(request, response) {
 
-	if (!response.isAuthenticated()) {
+	//
+	//	If the user is not authenticated,
+	//	then there is no user data to get.
+	//
+	if (!request.isAuthenticated()) {
 		response.json(null);
+		return;
 	}
 
+	//
+	//	Send back the current user's
+	//	id and username to update the
+	//	page with.
+	//
+	const id = request.user.id;
+	const username = request.user.username;
 	var responseObj = {
-		id: 9001,
-		username: 'user123'
+		id: id,
+		username: username
 	}
-
-	console.log("Sending the following: " + responseObj.toString());
+	var responselog = `[id:${responseObj.id}; username:${responseObj.username}]`;
+	console.log("Sending the following back: " + responselog);
 
 	response.json(responseObj);
 	
@@ -130,7 +132,10 @@ app.post('/processregister', async function(request, response) {
 		console.log("Failed to register \"${username}\".");
 		response.redirect('/register');
 	}
-	console.log("Registered \"${username}\" with id \"${id}\" to accounts.")
+
+	var responselog = `Registered \"${username}\" with id \"${id}\" to accounts.`;
+	console.log(responselog);
+
 });
 
 function checkAuthenticated(request, response, next) {
@@ -142,4 +147,24 @@ function checkAuthenticated(request, response, next) {
 
 app.listen(port, function() {
 	console.log("Server is running at http://localhost:3000/");
+	console.log("Registering a temp user...");
+	regtemp();
 });
+
+async function regtemp() {
+
+	id = Date.now().toString();
+	username = "kyle";
+	password = await bcrypt.hash("kyle123", 10);
+
+	users.push({
+		id: id,
+		username: username,
+		password: password
+	})
+
+
+	var responselog = `Registered \"${username}\" with id \"${id}\" to accounts.`;
+	console.log(responselog);
+
+}
