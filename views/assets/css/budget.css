@@ -4,6 +4,42 @@
 }
 
 .resultText {
+    font-size: x-large;
+    font-family: sans-serif;
+}
+
+#bodySection {
+    position: relative;
+    background-color: rgb(77, 73, 73);
+    margin: auto;
+    padding: 5%;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 10% 10% 10% 10%;
+}
+
+#incomeLabel {
     font-size: xx-large;
     font-family: sans-serif;
+}
+
+#budgetForm{
+    margin: auto;
+
+}
+
+#dataTable {
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+}
+
+.expenseButton {
+    width: 30%;
+    margin: auto;
 }
