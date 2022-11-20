@@ -27,7 +27,8 @@ app.use(express.urlencoded({
 }))
 app.use(flash());
 app.use(session({
-	secret: process.env.SESSION_SECRET,
+	//secret: process.env.SESSION_SECRET,
+	secret: 'secretlol',
 	resvae: false,
 	saveUninitialized: false
 }));
