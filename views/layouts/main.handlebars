@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>BudgetBuddy</title>
     <link rel="stylesheet" href="assets/css/Menu.css">
+    <script src="assets/js/main.js"></script>
 </head>
-<body style="background-color: rgb(44, 44, 44); color:white;">
+<body style="background-color: rgb(44, 44, 44); color:white;" onload="loadUserDataMain(); init();">
+    <p id="data" hidden>{{username}}</p>
     <div id="menuSection">
         <div id="emptyLeftSection">
             <p id="leftMenuSectionText">BudgetBuddy</p>

@@ -62,7 +62,7 @@ app.get('/test', function(request, response) {
 
 app.get('/budget', checkAuthenticated, function(request, response) {
 	// response.render('budget');
-	response.render('budget', { username: request.user.username });
+	response.render('budget');
 });
 
 app.post('/processlogin', passport.authenticate('local', {
@@ -70,36 +70,6 @@ app.post('/processlogin', passport.authenticate('local', {
 	failureRedirect: '/login',
 	failureFlash: true
 }))
-
-app.post('/processlogin-old', function(request, response) {
-
-	// //Preset Passwords
-	const username = "user1";
-	const password = "1234";
-
-	//	Form inputs
-	const inputusername = request.body.username;
-	const inputpassword = request.body.password;
-
-	// Right now, I made the response to display what you entered
-	// on the login page.
-	let responseMsg = "So... this is what we got on the backend...\n";
-	responseMsg += "Username: " + inputusername + "\n";
-	responseMsg += "Password: " + inputpassword + "\n";
-
-	response.type('text/plain');
-	//response.send(responseMsg);
-	if (inputusername == username && inputpassword == password) {
-		response.send("Valid UserName and Password")
-		console.log("Valid")
-		
-	} else {
-		response.send("Invalid Username and Password")
-		console.log("Invalid")
-		
-	}
-
-});
 
 // {
 // 	id: 9001,
@@ -118,9 +88,26 @@ app.get('/regtemp', async function(request, response) {
 		password: password
 	})
 
-	console.log("Registered \"${username}\" with id \"${id}\" to accounts.")
+	console.log("Registered \"${{username}}\" with id \"${id}\" to accounts.")
 	response.redirect('/');
 
+});
+
+app.get('/getuserdata', function(request, response) {
+
+	if (!response.isAuthenticated()) {
+		response.json(null);
+	}
+
+	var responseObj = {
+		id: 9001,
+		username: 'user123'
+	}
+
+	console.log("Sending the following: " + responseObj.toString());
+
+	response.json(responseObj);
+	
 });
 
 app.post('/processregister', async function(request, response) {
