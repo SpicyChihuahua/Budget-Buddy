@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const initPassport = require('./passport-config');
 initPassport(
