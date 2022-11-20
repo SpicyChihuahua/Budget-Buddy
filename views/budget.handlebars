@@ -9,7 +9,7 @@
 
 	<h2 id="incomeLabel">Income<br>---</h1>
 
-	<form oninput=income.value=(parseFloat(wage.value)*(weeklyhours.value)*4.345).toFixed(2) id="budgetForm">
+	<form oninput="updateIncome();" id="budgetForm">
         <p class="formText">Hourly Wage (Per Hour): <br>$<input id="wage" name="wage" type="number" step="0.01" required/></p>
 		<p class="formText">Hours per Week:</p>
 		<input id="weeklyhours" name="weeklyhours" type="number" required/>
@@ -22,7 +22,7 @@
 	
         <br><br>
 	
-        <p class="resultText">Monthly Income = $<output step="0.01" name="income"></output></p>
+        <p class="resultText">Monthly Income = $<output step="0.01" id="income" name="income"></output></p>
 	</form>
 	
 	<h2 id="incomeLabel">Expenses<br>---</h1>
@@ -31,9 +31,9 @@
 	<TABLE id="dataTable" border="1">
 		<TR>
 			<TD><INPUT type="checkbox" name="chk"/></TD>
-			<TD><INPUT type="number" name="txt"/></TD>
+			<TD><INPUT type="number" name="txt" class="expenseVal"/></TD>
 			<TD>
-				<SELECT name="country">
+				<SELECT name="country" class="expenseType">
 					<OPTION value="groceries">Groceries</OPTION>
 					<OPTION value="car">Car Payment</OPTION>
 					<OPTION value="gas">Gas</OPTION>

@@ -1,3 +1,75 @@
+class Budget {
+    constructor(id, income, expenses) {
+        this.id = id;
+        this.income = income;
+        this.expenses = expenses;
+    }
+}
+
+class Expense {
+    constructor(type, value) {
+        this.type = type;
+        this.value = value;
+    }
+}
+
+var userBudget = new Budget(Date.now, 0, []);
+
+function calculateIncome() {
+
+    var income = 0;
+    const wage = document.getElementById("wage").value;
+    const weeklyhours = document.getElementById("weeklyhours").value;
+    
+    income = (parseFloat(wage)*(weeklyhours)*4.345).toFixed(2);
+    return income;
+}
+
+function updateIncome() {
+
+    document.getElementById("income").innerText = calculateIncome();
+    updateBudget();
+
+}
+
+function updateBudget() {
+
+    var id = Date.now();
+
+    var income = calculateIncome();
+
+    //  Expenses
+    var expenses = []
+    var table = document.getElementById("dataTable");
+
+    // for (var i = 0; i<table.rows.length; ++i) {
+
+    //     var row = table.rows[i];
+    //     var expense = new Expense("", 0);
+    //     expense.value = table.rows[i].cells[1].value;
+
+    //     alert(expense.value);
+
+    // }
+
+    expenseValues = document.getElementsByClassName("expenseVal");
+    expensesTypes = document.getElementsByClassName("expenseType");
+    for (var i = 0; i<expenseValues.length; ++i) {
+        if (expenseValues[i].value === "") expenseValues[i].value = 0;
+        var expense = new Expense(expensesTypes[i].value, expenseValues[i].value);
+        expenses.push(expense);
+    }
+
+    //update
+    userBudget.id = id;
+    userBudget.income = income;
+    userBudget.expenses = expenses;
+
+    // alert(JSON.stringify(userBudget));
+
+    
+}
+
 async function loadUserData() {
 
     var unamefield = document.getElementById('userText');
