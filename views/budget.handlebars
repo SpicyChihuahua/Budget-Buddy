@@ -26,12 +26,17 @@
 	</form>
 	
 	<h2 id="incomeLabel">Expenses<br>---</h1>
-	<TITLE> Add/Remove dynamic rows in HTML table </TITLE>
+	<TITLE> Add/Remove Expenses in the following table </TITLE>
 
 	<TABLE id="dataTable" border="1">
+	      <TR>
+                  <TH>SEL</TH>
+                  <TH>Cost</TH>
+                  <TH>Category</TH>
+              </TR>
 		<TR>
 			<TD><INPUT type="checkbox" name="chk"/></TD>
-			<TD><INPUT type="number" name="txt" class="expenseVal"/></TD>
+			<TD><INPUT type="number" step="0.01" name="txt" class="expenseVal"/></TD>
 			<TD>
 				<SELECT name="country" class="expenseType">
 					<OPTION value="groceries">Groceries</OPTION>
