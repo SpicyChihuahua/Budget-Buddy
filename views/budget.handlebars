@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="assets/css/budget.css">
 <script src="assets/js/budget.js"></script>
+<script src="assets/js/main.js"></script>
 
 <br><br>
 <div id="bodySection"> 
@@ -49,6 +50,7 @@
 	<INPUT type="button" value="Delete Expense(s)" onclick="deleteRow('dataTable')" class="expenseButton"/>
 <script type="text/javascript">
   window.onload = function () {
+    loadUserDataMain();
     var chart = new CanvasJS.Chart("chartContainer",
     {
       title:{

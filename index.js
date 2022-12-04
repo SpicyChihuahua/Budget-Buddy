@@ -4,6 +4,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
+
+//	Passport
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const initPassport = require('./passport-config');
@@ -15,16 +17,30 @@ initPassport(
 const flash = require('express-flash');
 const session = require('express-session');
 
+//	FTP
+const multer = require('multer');
+const fileUpload = require('express-fileupload');
+const fs = require('fs');
+
+//	Express App
 const app = express();
 
 //	Local users and passwords
 //	Connect to Database later :)
 const users = [];
 
+//	Express MiddleWare
 app.use(express.static(__dirname + '/views'));
 app.use(express.urlencoded({
 	extended: true
-}))
+}));
+app.use(fileUpload());
+// app.use(
+// 	// 10 mb limit
+//     fileUpload({limits: {fileSize: 10000000, }, abortOnLimit: true,})
+// );
+
+//	Express/Passport MiddleWare
 app.use(flash());
 app.use(session({
 	//secret: process.env.SESSION_SECRET,
@@ -65,10 +81,45 @@ app.get('/test', function(request, response) {
 	response.send('Node.js and Express running on port='+port);
 });
 
-
 app.get('/budget', checkAuthenticated, function(request, response) {
-	// response.render('budget');
 	response.render('budget');
+});
+
+app.get('/profile', checkAuthenticated, function(request, response) {
+	response.render('profilepage');
+});
+
+//
+//	Uploaded Image will be named: <idnumber>.<fileExtension>
+//	Example: 
+//		User with profile id "2991" uploads a png file.
+//		It will be saved under the profileimages folder as "2991.png"
+//
+app.post('/uploadimg', function(request, response) {
+	const { image } = request.files;
+
+	//	Check image
+	if (!image) return res.sendStatus(400);
+
+	//	Check if profile image already exists...
+	//	Delete if so :)
+	var fileNameBase = __dirname + '/profileimages/' + request.user.id;
+	if (fs.existsSync(fileNameBase + ".png")) {
+		fs.unlinkSync(fileNameBase + ".png");
+	}
+	else if (fs.existsSync(fileNameBase + ".jpg")) {
+		fs.unlinkSync(fileNameBase + ".jpg");
+	}
+	else if (fs.existsSync(fileNameBase + ".jpeg")) {
+		fs.unlinkSync(fileNameBase + ".jpeg");
+	}
+
+    // <idnumber>.<fileExtension>
+	var imageFileName = request.user.id + "." + image.name.split('.')[1];
+	image.mv(__dirname + '/profileimages/' + imageFileName);
+
+	//	Back to Profile Page
+    response.redirect('back');
 });
 
 app.post('/processlogin', passport.authenticate('local', {
@@ -76,6 +127,13 @@ app.post('/processlogin', passport.authenticate('local', {
 	failureRedirect: '/login',
 	failureFlash: true
 }));
+
+app.get('/logout', function(request, response, next){
+	request.logout(function(err) {
+	  if (err) { return next(err); }
+	  response.redirect('/');
+	});
+  });
 
 // {
 // 	id: 9001,
@@ -118,11 +176,49 @@ app.get('/getuserdata', function(request, response) {
 	
 });
 
+app.get('/getprofilepicture', function(request, response) {
+
+	//
+	//	If the user is not authenticated,
+	//	then there is no user data to get.
+	//
+	if (!request.isAuthenticated()) {
+		response.sendFile(null);
+		return;
+	}
+
+	//
+	//	Send back the current user's
+	//	profile picture
+	//
+	const id = request.user.id;
+	const username = request.user.username;
+	var responseImage;
+	var fileNameBase = __dirname + '/profileimages/' + id;
+	var ext = "";
+
+	if (fs.existsSync(fileNameBase + ".png")) ext = ".png";
+	else if (fs.existsSync(fileNameBase + ".jpg")) ext = ".jpg";
+	else if (fs.existsSync(fileNameBase + ".jpeg")) ext = ".jpeg";
+
+	if (ext === "") {
+		//	Return Default Picture
+		fileNameBase = __dirname + '/profileimages/default';
+		ext = ".png";
+	}
+
+	response.sendFile(fileNameBase + ext);
+
+	var responselog = `[image:${id};]`;
+	console.log("Sending the following back: " + responselog);
+	
+});
+
 app.post('/processregister', async function(request, response) {
 
 	//	Form inputs
 	const username = request.body.username;
-	const password = "";
+	var password = "";
 	const id = Date.now().toString();
 
 	try {
@@ -134,7 +230,8 @@ app.post('/processregister', async function(request, response) {
 		})
 		response.redirect('/login');
 	}
-	catch {
+	catch (err) {
+		console.log(err);
 		console.log("Failed to register \"${username}\".");
 		response.redirect('/register');
 	}

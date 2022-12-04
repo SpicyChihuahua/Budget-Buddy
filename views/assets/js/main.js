@@ -30,5 +30,10 @@ async function loadUserDataMain() {
     
     if (username !== "") {
         profileTextPara.innerHTML = "Welcome " + username + "!";
+        document.getElementById('loginItem').style.display = 'none';
+        document.getElementById('registerItem').style.display = 'none';
+        document.getElementById('budgetItem').style.display = 'block';
+        document.getElementById('profileItem').style.display = 'block';
+        document.getElementById('logoutItem').style.display = 'block';
     }
 }

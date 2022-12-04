@@ -32,7 +32,7 @@
     position: relative;
     margin-left: 10%;
     margin-right: 10%;
-    font-size: x-large;
+    font-size: 1.8vw;
     text-align: center;
 }
 
@@ -69,7 +69,7 @@
     text-align: center;
     font-family: sans-serif;
     font-weight: bolder;
-    font-size:25px;
+    font-size: 2vw;
 }
 
 #proposalList {
@@ -77,4 +77,16 @@
     justify-content: center;
     list-style: none;
     font-family: sans-serif;
+}
+
+#budgetItem {
+    display: none;
+}
+
+#logoutItem {
+    display: none;
+}
+
+#profileItem {
+    display: none;
 }

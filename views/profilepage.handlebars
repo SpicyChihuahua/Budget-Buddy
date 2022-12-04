@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="assets/css/profilepage.css">
+<script src="assets/js/profilepage.js"></script>
+<br>
+<br>
+<p id="errorText"></p>
+<img src onerror='loadProfileData();'>
+<div id="midProfileSection">
+
+    <div id="profilePicture"></div>
+
+    <p id="profilePageNameText">Profile Name</p>
+
+    <p id="profilePageIDText">ID: #########</p>
+
+    <form id="profileIMGUploadForm" action="/uploadimg" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required/>
+        <button type="submit">Update Profile Image</button>
+    </form>
+    
+</div>
