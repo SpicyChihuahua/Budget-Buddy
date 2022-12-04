@@ -81,6 +81,10 @@ app.get('/test', function(request, response) {
 	response.send('Node.js and Express running on port='+port);
 });
 
+app.get('/contact',  function(request, response) {
+	response.render('contact');
+});
+
 app.get('/budget', checkAuthenticated, function(request, response) {
 	response.render('budget');
 });
@@ -212,6 +216,17 @@ app.get('/getprofilepicture', function(request, response) {
 	var responselog = `[image:${id};]`;
 	console.log("Sending the following back: " + responselog);
 	
+});
+
+app.post('/processhelp', function(request, response) {
+
+	//	Contact Us Elements
+	const name = "";
+	const problemText = "";
+
+	var responselog = `Contact Us Form Submitted!`;
+	console.log(responselog);
+
 });
 
 app.post('/processregister', async function(request, response) {
