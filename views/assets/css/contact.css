@@ -11,3 +11,15 @@
     align-items: center;
     flex-direction: column;
 }
+
+#info {
+    text-align: center;
+
+}
+
+#contactLabel {
+    font-size: xx-large;
+    font-family: sans-serif;
+    height: 1%;
+    text-decoration: underline;
+}
