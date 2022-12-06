@@ -1,7 +1,10 @@
-if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
-}
+if (process.env.NODE_ENV !== 'production') { require('dotenv').config(); }
 
+///
+///	Node Modules
+///
+
+//	Express
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 
@@ -22,14 +25,27 @@ const multer = require('multer');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 
+///
+/// Express Middleware Configuration
+///
+
 //	Express App
 const app = express();
-
-//	Local users and passwords
-//	Connect to Database later :)
+const port = process.env.PORT || 3000
 const users = [];
+app.engine('handlebars', expressHandlebars.engine({
+	defaultLayout: 'main',
+  }));
+app.set('view engine', 'handlebars');
+app.set('views', './views');
+app.listen(port, function() {
+	console.log("Server is running at http://localhost:3000/");
+	console.log("Registering a temp user...");
+	regtemp(); // Register a user upon start up
 
-//	Express MiddleWare
+});
+
+//	Express Node MiddleWare
 app.use(express.static(__dirname + '/views'));
 app.use(express.urlencoded({
 	extended: true
@@ -51,13 +67,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.engine('handlebars', expressHandlebars.engine({
-	defaultLayout: 'main',
-  }));
-app.set('view engine', 'handlebars');
-app.set('views', './views');
-
-const port = process.env.PORT || 3000
+///
+///	Routing
+///
 
 app.get('/', function(request, response) {
 	// response.render('home', { username: request.user.username });
@@ -256,18 +268,9 @@ app.post('/processregister', async function(request, response) {
 
 });
 
-function checkAuthenticated(request, response, next) {
-	if (request.isAuthenticated()) {
-		return next();
-	}
-	else response.redirect("/login");
-}
-
-app.listen(port, function() {
-	console.log("Server is running at http://localhost:3000/");
-	console.log("Registering a temp user...");
-	regtemp();
-});
+///
+///	Functions
+///
 
 async function regtemp() {
 
@@ -286,3 +289,12 @@ async function regtemp() {
 	console.log(responselog);
 
 }
+
+function checkAuthenticated(request, response, next) {
+	if (request.isAuthenticated()) {
+		return next();
+	}
+	else response.redirect("/login");
+}
+
+module.exports = { app }
