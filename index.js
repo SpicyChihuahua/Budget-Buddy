@@ -192,6 +192,21 @@ app.get('/getuserdata', function(request, response) {
 	
 });
 
+app.post('/processProfileBios', function(request, response) {
+
+	const biostext = request.body.profileBiosField;
+
+	//	Rewrite profile bios file
+	var fileNameBase = __dirname + '/profilebios/' + id;
+	var ext = ".dat";
+	var datStream = fs.createWriteStream(fileNameBase+ext);
+	datStream.write(biostext);
+	datStream.close();
+
+	//	Back to Profile Page
+    response.redirect('back');
+});
+
 app.get('/getprofilepicture', function(request, response) {
 
 	//
@@ -238,6 +253,48 @@ app.post('/processhelp', function(request, response) {
 
 	var responselog = `Contact Us Form Submitted!`;
 	console.log(responselog);
+
+});
+
+app.get('/getprofilebios', async function(request, response) {
+
+	var responseJSON = {
+		biostxt: ""
+	};
+
+	//
+	//	If the user is not authenticated,
+	//	then there is no user data to get.
+	//
+	if (!request.isAuthenticated()) {
+		response.json(responseJSON);
+		return;
+	}
+
+	//
+	//	Send back the current user's
+	//	profile bios in json
+	//
+
+	const id = request.user.id;
+	const username = request.user.username;
+	var fileNameBase = __dirname + '/profilebios/' + id;
+	var ext = ".dat";
+	var datastr = "";
+
+	if (!fs.existsSync(fileNameBase + ext)) {
+		console.log("DOESNT EXIT!")
+		var datStream = fs.writeFileSync(fileNameBase+ext, "Feel free to update your bios. :)");
+	}
+
+	datastr = fs.readFileSync(fileNameBase+ext, 'utf8');
+
+	responseJSON.biostxt = datastr;
+
+	var responselog = `{responseJSON: ${JSON.stringify(responseJSON)}}`;
+	console.log("Sending the following back: " + responselog);
+
+	response.json(responseJSON);
 
 });
 

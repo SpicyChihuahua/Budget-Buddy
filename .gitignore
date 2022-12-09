@@ -105,3 +105,10 @@ dist
 
 # MacOS .DS_Store
 .DS_Store
+
+# for /profileimages
+*.png 
+*.jpeg
+*.jpg 
+
+# for /profilebios

@@ -12,6 +12,13 @@
 
     <p id="profilePageIDText">ID: #########</p>
 
+    <p id="profileBIOSText">Profile Bios</p>
+
+    <form id="profileBiosFieldForm" action="/processProfileBios" method="POST">
+        <input id="profileBiosField" name="profileBiosField" type="text"/>
+        <input value = "Update Bios" id="updateButton" name="updateButton" type="submit"/>
+    </form>
+
     <form id="profileIMGUploadForm" action="/uploadimg" method="POST" enctype="multipart/form-data">
         <input type="file" name="image" required/>
         <button type="submit">Update Profile Image</button>
