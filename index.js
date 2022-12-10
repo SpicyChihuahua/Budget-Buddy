@@ -68,6 +68,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 ///
+/// Database
+///
+let MongoClient = require('mongodb').MongoClient;
+
+const constants = require('./ConnectionConstant.js');
+
+const { ObjectID } = require('bson');
+
+///
+/// Database Functions
+///
+
+///
 ///	Routing
 ///
 
