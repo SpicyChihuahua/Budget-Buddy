@@ -35,7 +35,7 @@ async function loadProfileData() {
     }
 
     profilebiosfetchurl += window.location.hostname + ":" + window.location.port + "/getprofilebios";
-    alert(profilebiosfetchurl)
+    // alert(profilebiosfetchurl)
     try {
         await fetch(profilebiosfetchurl)
             .then(res => res.json())

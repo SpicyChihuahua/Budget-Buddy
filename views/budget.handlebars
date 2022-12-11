@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="assets/css/budget.css">
 <script src="assets/js/budget.js"></script>
 <script src="assets/js/main.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <br><br>
 <div id="bodySection"> 
@@ -48,48 +49,6 @@
 	<INPUT type="button" value="Add Expense" onclick="addRow('dataTable')" class="expenseButton"/>
 
 	<INPUT type="button" value="Delete Expense(s)" onclick="deleteRow('dataTable')" class="expenseButton"/>
-<script type="text/javascript">
-  window.onload = function () {
-    loadUserDataMain();
-    var chart = new CanvasJS.Chart("chartContainer",
-    {
-      title:{
-        text: "Budget Pie Chart",
-        fontFamily: "Impact",
-        fontWeight: "normal"
-      },
-
-      legend:{
-        verticalAlign: "bottom",
-        horizontalAlign: "center"
-      },
-      data: [
-      {
-        //startAngle: 45,
-       indexLabelFontSize: 20,
-       indexLabelFontFamily: "Arial",
-       indexLabelFontColor: "black",
-       indexLabelLineColor: "darkgrey",
-       indexLabelPlacement: "outside",
-       type: "doughnut",
-       showInLegend: true,
-       dataPoints: [
-       {  y: 53.37, legendText:"Groceries $", indexLabel: "Groceries $" },
-       {  y: 35.0, legendText:"Car Payment $", indexLabel: "Car Payment $" },
-       {  y: 7, legendText:"Gas $", indexLabel: "Gas $" },
-       {  y: 2, legendText:"Rent/House Payment $", indexLabel: "Rent/House Payment $" },
-       {  y: 5, legendText:"Subscriptions $", indexLabel: "Subscriptions $" },
-       {  y: 5, legendText:"Remaining Cash $", indexLabel: "Remaining Cash $" }
-       ]
-     }
-     ]
-   });
-
-    chart.render();
-  }
-  </script>
-  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
-  <body>
-    <div id="chartContainer" style="height: 300px; width: 100%;">
-    </div>
+  <INPUT type="button" value="Update Chart" onclick="updateBudget();" class="expenseButton"/>
+  <div id="chartContainer"></div>
 </div>

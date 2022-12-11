@@ -15,6 +15,9 @@ class Expense {
 
 var userBudget = new Budget(Date.now, 0, []);
 
+var chart;
+
+
 function calculateIncome() {
 
     var income = 0;
@@ -65,9 +68,43 @@ function updateBudget() {
     userBudget.income = income;
     userBudget.expenses = expenses;
 
+    updateChart();
     // alert(JSON.stringify(userBudget));
 
     
+}
+
+/*
+        {  y: 0, legendText:"Groceries $", indexLabel: "Groceries $" },
+        {  y: 0, legendText:"Car Payment $", indexLabel: "Car Payment $" },
+        {  y: 0, legendText:"Gas $", indexLabel: "Gas $" },
+        {  y: 0, legendText:"Rent/House Payment $", indexLabel: "Rent/House Payment $" },
+        {  y: 0, legendText:"Subscriptions $", indexLabel: "Subscriptions $" },
+        {  y: 0, legendText:"Remaining Cash $", indexLabel: "Remaining Cash $" }
+*/
+function updateChart() {
+
+    chart.options.data[0].dataPoints = [];
+    var leftOverIncome = userBudget.income;
+
+    for (var i = 0; i<userBudget.expenses.length; ++i) {
+        chart.options.data[0].dataPoints.push({
+            y: userBudget.expenses[i].value,
+            legendText: userBudget.expenses[i].type.toUpperCase(),
+            indexLabel: userBudget.expenses[i].type.toUpperCase()
+        });
+        leftOverIncome -=  userBudget.expenses[i].value;
+    }
+
+    chart.options.data[0].dataPoints.push({
+        y: leftOverIncome,
+        legendText: "LEFTOVER INCOME",
+        indexLabel: "LEFTOVER INCOME"
+    });
+
+    // alert(JSON.stringify(chart.options.data[0].dataPoints));
+    chart.render();
+
 }
 
 async function loadUserData() {
@@ -104,6 +141,34 @@ async function loadUserData() {
 
 function init() {
     loadUserData();
+    chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+        text: "Budget Pie Chart",
+        fontFamily: "Sans-Serif",
+        fontWeight: "bolder"
+      },
+
+      legend:{
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      data: [
+      {
+        //startAngle: 45,
+       indexLabelFontSize: 20,
+       indexLabelFontFamily: "Sans-Serif",
+       indexLabelFontColor: "black",
+       indexLabelLineColor: "darkgrey",
+       indexLabelPlacement: "outside",
+       type: "doughnut",
+       showInLegend: true,
+       dataPoints: [
+       ]
+     }
+     ]
+   });
+    chart.render();
 }
 
 function addRow(tableID) {

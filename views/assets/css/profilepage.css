@@ -2,7 +2,7 @@
     position: fixed;
     width: 80%;
     left: 10%;
-    height: 60%;
+    height: 800px;
     display: flex;
     justify-content: flex-start;
     text-align: center;
@@ -13,7 +13,7 @@
 
 #profilePicture {
     position: relative;
-    top: 5%;
+    top: 20px;
     margin: 0 auto;
     width: 300px;
     height: 300px;
@@ -27,21 +27,36 @@
 #profilePageNameText {
     position: relative;
     font-size: xx-large;
+    font-weight: bolder;
     margin: 0 auto;
-    top: 6%;
+    top: 30px;
 }
 
 #profilePageIDText {
     position: relative;
     font-size: x-small;
-    top: 5%;
+    top: 25px;
+}
+
+#profileBIOSText {
+    position: relative;
+    font-size:large;
+    top: 20px;
+}
+
+#profileBiosFieldForm {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: 30px;
+    flex-flow: row nowrap;
 }
 
 #profileIMGUploadForm {
     position: relative;
     display: flex;
     justify-content: center;
-    top: 5%;
+    top: 50px;
     flex-flow: row nowrap;
 }
 
