@@ -12,7 +12,15 @@
         - Huge Textbox for a paragraph
     -->
     <p id="contactLabel">Contact Us</p>
-    <p id="info"> If you have any concerns or are expreincing any bugs please email the product owner Parker Woods at: parkerjwoods@lewisu.edu</p>
-    <form id="loginform" action="/processhelp" method="POST">
+    
+    <form id="contactform" action="/processhelp" method="POST">
+        <p class="formTags">Name</p>
+        <input id="name" name="name" type="text" required/><br>
+        <p class="formTags">Please describe your issue below.</p>
+        <input id="problemText" name="problemText" type="text" required/><br>
+        <input id="submitButton" name="submitButton" type="submit"/>
     </form>
+    <br>
+    <p class="info"> If you have any concerns or are expreincing any bugs please email the product owner.</p>
+    <p class="info">Parker Woods: parkerjwoods@lewisu.edu</p>
 </div>

@@ -1,8 +1,8 @@
 #loginformSection {
     position: relative;
     display: flex;
-    width: 400px;
-    height: 400px;
+    width: 800px;
+    height: fit-content;
     background-color: rgb(146, 146, 146);
     justify-content: flex-start;
     margin: auto;
@@ -12,9 +12,9 @@
     flex-direction: column;
 }
 
-#info {
+.info {
     text-align: center;
-
+    font-family: sans-serif;
 }
 
 #contactLabel {
@@ -22,4 +22,24 @@
     font-family: sans-serif;
     height: 1%;
     text-decoration: underline;
+}
+
+#problemText {
+    position: relative;
+    height: 200px;
+    width: 600px;
+}
+
+.formTags {
+    font-size: large;
+    font-family: sans-serif;
+}
+
+#contactform {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    /* align-self: center; */
 }
