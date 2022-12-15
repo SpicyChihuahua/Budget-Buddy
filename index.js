@@ -13,9 +13,102 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const initPassport = require('./passport-config');
 initPassport(
-	passport,
-	username => users.find(user => user.username === username),
-	id => users.find(user => user.id === id)
+    passport,
+    //    Return the username
+    async function (username) {
+
+        var userObject;
+
+        //    Find Entry in database
+        let MongoClient = require('mongodb').MongoClient;
+        const uri = constants.uri;
+        const databaseName = constants.databaseName;
+        const collectionName =constants.collectionName;
+
+        return new Promise(function(resolve) {MongoClient.connect(uri, 
+            function(err,db) {
+                if (err) throw err;
+                let dbo = db.db(databaseName);
+                dbo.collection(collectionName).find({}).toArray(
+                    function(err, result) {
+                        if (err) throw err;
+                        result.forEach(function(item){
+                            if(item.Username === username){
+                                console.log(`Found ${username}`)
+
+                                //    update our entry with
+                                //    username, password, and id
+                                var res = {
+                                    username: item.Username,
+                                    password: item.Password,
+                                    id: item._id.toString()
+                                }
+                                resolve(res);
+                        }})
+
+                    }
+                )
+                }
+            )
+        });
+        // return new Promise(async (resolve) => {
+        //         console.log("Database Pull Done.");
+        //         console.log(`DB: ${JSON.stringify(userObject)}`);
+        //         resolve(userObject);
+        // })
+    },
+    //id => users.find(user => user.id === id)
+    async function (id) {
+
+        var userObject;
+
+        //    Find Entry in database
+        let MongoClient = require('mongodb').MongoClient;
+        const uri = constants.uri;
+        const databaseName = constants.databaseName;
+        const collectionName =constants.collectionName;
+
+        async function search(id) {
+            return new Promise(function(resolve) {MongoClient.connect(uri, 
+            function(err,db) {
+                if (err) throw err;
+                let dbo = db.db(databaseName);
+                dbo.collection(collectionName).find({}).toArray(
+                    function(err, result) {
+                        if (err) throw err;
+                        result.forEach(function(item){
+                            //console.log(`${item._id} === ${id}`)
+                            if(item._id.toString() === id.toString()){
+                                console.log(`Found ${id}`)
+
+                                //    update our entry with
+                                //    username, password, and id
+                                var res = {
+                                    username: item.Username,
+                                    password: item.Password,
+                                    id: item._id.toString()
+                                }
+                                resolve(res);
+                        }})
+
+                    }
+                )
+                }
+            )
+            });
+        }
+
+        var user = await search(id);
+
+        console.log("getByID: " + JSON.stringify(user));
+
+        return user;
+        // return new Promise(async (resolve) => {
+        //         console.log("Database Pull Done.");
+        //         console.log(`DB: ${JSON.stringify(userObject)}`);
+        //         resolve(userObject);
+        // })
+    }
 );
 const flash = require('express-flash');
 const session = require('express-session');
@@ -79,6 +172,111 @@ const { ObjectID } = require('bson');
 ///
 /// Database Functions
 ///
+
+//creating data #users
+async function create(uri, databaseName, collectionName, username, password) {
+	const client = new MongoClient(uri);
+	const result = await client.db(databaseName).collection(collectionName).insertOne({"Username":`${username}`, "Password": `${password}`});
+	console.log(result);
+	client.close();
+}
+
+//pulls all data from the database
+function readAll(uri, databaseName, collectionName) {
+	try {
+		let MongoClient = require('mongodb').MongoClient;
+		MongoClient.connect(uri, 
+			function(err,db) {
+				if (err) throw err;
+				let dbo = db.db(databaseName);
+				dbo.collection(collectionName).find({}).toArray(
+					function(err, result) {
+						if (err) throw err;
+                        //this only would take the data that has the names that are used. Check Create.js to see why item.username and item.password Have to be capital to get them
+						result.forEach(function(item){console.log("Username: "+item.Username+"\nPassword: "+item.Password+"\nID: "+item._id+"\nData: "+item.data+"\n")})
+						console.log(result.length+" documents")
+						db.close();
+					}
+				)
+			}
+		)
+	} catch(e) {
+		console.log(e)
+	}
+}
+
+//delete users
+async function deleteByID(uri, databaseName, collectionName, id) {
+	const client = new MongoClient(uri);
+	const result = await client.db(databaseName).collection(collectionName).deleteOne({"_id":ObjectID(`${id}`)});
+    console.log(result);
+	client.close()
+}
+
+//updating data
+async function updateByID(uri, databaseName, collectionName, id, title, pass) {
+	const client = new MongoClient(uri);
+	const result = await client.db(databaseName).collection(collectionName).updateOne({"_id":ObjectID(`${id}`)},{$set:{"data":`"${title}"`}},{$set:{"password":`"${pass}"`}});
+    console.log(result);
+	client.close();
+}
+
+async function checkUsersAndPass(uri, databaseName,collectionName, username, password){
+	isTrue = false;
+	try {
+		let MongoClient = require('mongodb').MongoClient;
+		MongoClient.connect(uri, 
+			function(err,db) {
+				if (err) throw err;
+				let dbo = db.db(databaseName);
+				dbo.collection(collectionName).find({}).toArray(
+					function(err, result) {
+						if (err) throw err;
+						result.forEach(function(item){if(item.Username === username && item.Password === password){isTrue = true}})
+						if(isTrue === true){console.log("login success")}else{console.log("Username or password is incorrect")}
+						console.log(result.length+" documents")
+						db.close();
+					}
+				)
+			}
+		)
+	} catch(e) {
+		console.log(e)
+	}
+} 
+
+async function checkUser(uri, databaseName,collectionName, username){
+	isTrue = false;
+	try {
+		let MongoClient = require('mongodb').MongoClient;
+		MongoClient.connect(uri, 
+			function(err,db) {
+				if (err) throw err;
+				let dbo = db.db(databaseName);
+				dbo.collection(collectionName).find({}).toArray(
+					function(err, result) {
+						if (err) throw err;
+						result.forEach(function(item){if(item.Username === username){isTrue = true;}})
+						if(isTrue === true){
+							console.log("taken");
+							return true;
+
+						}else{
+							console.log("Username is unique");
+							db.close();
+							return false;
+	
+						}
+						
+					}
+				)
+			}
+		)
+	} catch(e) {
+		console.log(e)
+	}
+	return isTrue
+} 
 
 ///
 ///	Routing
@@ -152,9 +350,9 @@ app.post('/uploadimg', function(request, response) {
 });
 
 app.post('/processlogin', passport.authenticate('local', {
-	successRedirect: '/',
-	failureRedirect: '/login',
-	failureFlash: true
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
 }));
 
 app.get('/logout', function(request, response, next){
@@ -207,16 +405,17 @@ app.get('/getuserdata', function(request, response) {
 
 app.post('/processProfileBios', function(request, response) {
 
-	const biostext = request.body.profileBiosField;
+    const biostext = request.body.profileBiosField;
+    const id = request.user.id; // :)
 
-	//	Rewrite profile bios file
-	var fileNameBase = __dirname + '/profilebios/' + id;
-	var ext = ".dat";
-	var datStream = fs.createWriteStream(fileNameBase+ext);
-	datStream.write(biostext);
-	datStream.close();
+    //    Rewrite profile bios file
+    var fileNameBase = __dirname + '/profilebios/' + id;
+    var ext = ".dat";
+    var datStream = fs.createWriteStream(fileNameBase+ext);
+    datStream.write(biostext);
+    datStream.close();
 
-	//	Back to Profile Page
+    //    Back to Profile Page
     response.redirect('back');
 });
 
@@ -318,20 +517,75 @@ app.post('/processregister', async function(request, response) {
 	var password = "";
 	const id = Date.now().toString();
 
+	///
+	/// for checking database
+	//
+	const uri =constants.uri;
+	const databaseName = constants.databaseName;
+	const collectionName =constants.collectionName;
+
+	isTrue = false
+	//threw the function itself in here because was having problems with doing it async
 	try {
-		password = await bcrypt.hash(request.body.password, 10);
-		users.push({
-			id: id,
-			username: username,
-			password: password
-		})
-		response.redirect('/login');
+		let MongoClient = require('mongodb').MongoClient;
+		MongoClient.connect(uri, 
+			function(err,db) {
+				if (err) throw err;
+				let dbo = db.db(databaseName);
+				dbo.collection(collectionName).find({}).toArray(
+					function(err, result) {
+						if (err) throw err;
+						result.forEach(function(item){if(item.Username === username){isTrue = true;}})
+						//if user name is found in database redirect to register
+						if(isTrue === true){
+							console.log("taken");
+							db.close();
+							response.redirect('/register');
+
+						}else{
+							db.close();
+							console.log("Username is unique");
+							//where commented out function below was moved to continue checking if its a unique user
+							try {
+								password = bcrypt.hash(request.body.password, 10);
+								users.push({
+									id: id,
+									username: username,
+									password: password
+								})
+								create(uri, databaseName, collectionName, username, password)
+								response.redirect('/login');
+							}
+							catch (err) {
+								console.log(err);
+								console.log("Failed to register \"${username}\".");
+								response.redirect('/register');
+							}
+	
+						}
+						
+					}
+				)
+			}
+		)
+	} catch(e) {
+		console.log(e)
 	}
-	catch (err) {
-		console.log(err);
-		console.log("Failed to register \"${username}\".");
-		response.redirect('/register');
-	}
+
+	//try {
+	//	password = await bcrypt.hash(request.body.password, 10);
+	//	users.push({
+	//		id: id,
+	//		username: username,
+	//		password: password
+	//	})
+	//	response.redirect('/login');
+	//}
+	//catch (err) {
+	//	console.log(err);
+	//	console.log("Failed to register \"${username}\".");
+	//	response.redirect('/register');
+	//}
 
 	var responselog = `Registered \"${username}\" with id \"${id}\" to accounts.`;
 	console.log(responselog);
@@ -366,5 +620,6 @@ function checkAuthenticated(request, response, next) {
 	}
 	else response.redirect("/login");
 }
+
 
 module.exports = { app }
